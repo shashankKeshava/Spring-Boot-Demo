@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PersonService {
@@ -20,14 +22,24 @@ public class PersonService {
         this.personDao = personDao;
     }
 
-    @PostMapping
     public String addPerson(Person person) {
         return personDao.insertPerson(person);
     }
 
-    @GetMapping
-    public List listPersons() {
+    public List<Person> listPersons() {
         return personDao.displayAllPerson();
+    }
+
+    public Optional<Person > getPersonById(UUID id){
+        return personDao.selectPersonById(id);
+    }
+
+    public int deletePeron(UUID id){
+        return personDao.deletePersonById(id);
+    }
+
+    public int updatePersonById(UUID id, Person newPerson){
+        return personDao.updatePersonById(id,newPerson);
     }
 
 }
